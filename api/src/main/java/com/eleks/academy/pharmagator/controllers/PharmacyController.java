@@ -26,37 +26,32 @@ public class PharmacyController {
         return ResponseEntity.of(pharmacyRepository.findById(id));
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Pharmacy pharmacy) {
+    @PostMapping("/")
+    public ResponseEntity<Pharmacy> create(@RequestBody Pharmacy pharmacy) {
         return ResponseEntity.ok(pharmacyRepository.save(pharmacy));
     }
 
 
-    @GetMapping("/deleteById")
-    public ResponseEntity<?> deleteById(@RequestParam Long id) {
-        Optional<Pharmacy> optionalPharmacy = pharmacyRepository.findById(id);
+    @DeleteMapping("/{pharmacyId}")
+    public ResponseEntity<?> deleteById(@PathVariable Long pharmacyId) {
+        Optional<Pharmacy> optionalPharmacy = pharmacyRepository.findById(pharmacyId);
         if (optionalPharmacy.isPresent()) {
-            pharmacyRepository.deleteById(id);
-            return ResponseEntity.ok().build();
+            pharmacyRepository.deleteById(pharmacyId);
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();
         }
     }
 
 
-    @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestBody Pharmacy pharmacy) {
-        long id = pharmacy.getId();
-        Optional<Pharmacy> optionalById = pharmacyRepository.findById(id);
+    @PutMapping("/{pharmacyId}")
+    public ResponseEntity<Pharmacy> update(@PathVariable Long pharmacyId,@RequestBody Pharmacy pharmacy) {
+        Optional<Pharmacy> optionalById = pharmacyRepository.findById(pharmacyId);
         if (optionalById.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
-            Pharmacy pharmacyById = optionalById.get();
-            String updateForName = pharmacy.getName();
-            pharmacyById.setName(updateForName);
-            String updateForMedicineLinkTemplate = pharmacy.getMedicineLinkTemplate();
-            pharmacyById.setMedicineLinkTemplate(updateForMedicineLinkTemplate);
-            pharmacyRepository.save(pharmacyById);
+            pharmacy.setId(pharmacyId);
+            pharmacyRepository.save(pharmacy);
             return ResponseEntity.ok().build();
         }
     }
