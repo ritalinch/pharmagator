@@ -30,12 +30,15 @@ public class PriceController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<?> create(@RequestBody Price price) {
+    public ResponseEntity<Price> create(@RequestBody Price price) {
         return ResponseEntity.ok(priceRepository.save(price));
     }
 
-    @DeleteMapping("/{priceId}")
-    public ResponseEntity<?> deleteById(@PathVariable PriceId priceId) {
+    @DeleteMapping("/pharmacies/{pharmacyId}/medicines/{medicineId}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long pharmacyId,@PathVariable Long medicineId) {
+        PriceId priceId = new PriceId();
+        priceId.setPharmacyId(pharmacyId);
+        priceId.setMedicineId(medicineId);
         Optional<Price> optionalPrice = priceRepository.findById(priceId);
         if (optionalPrice.isPresent()) {
             priceRepository.deleteById(priceId);
@@ -57,7 +60,7 @@ public class PriceController {
             long pharmacyId = priceId.getPharmacyId();
             price.setPharmacyId(pharmacyId);
             priceRepository.save(price);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(price);
         }
     }
 }

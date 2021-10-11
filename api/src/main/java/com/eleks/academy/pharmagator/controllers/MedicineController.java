@@ -53,7 +53,7 @@ public class MedicineController {
         } else {
             medicine.setId(medicineId);
             medicineRepository.save(medicine);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(medicine);
         }
     }
 

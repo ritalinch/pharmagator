@@ -21,9 +21,9 @@ public class PharmacyController {
         return ResponseEntity.ok(pharmacyRepository.findAll());
     }
 
-    @GetMapping("/getById")
-    public ResponseEntity<Pharmacy> getById(@RequestParam Long id) {
-        return ResponseEntity.of(pharmacyRepository.findById(id));
+    @GetMapping("/pharmacyId")
+    public ResponseEntity<Pharmacy> getById(@PathVariable Long pharmacyId) {
+        return ResponseEntity.of(pharmacyRepository.findById(pharmacyId));
     }
 
     @PostMapping("/")
@@ -33,7 +33,7 @@ public class PharmacyController {
 
 
     @DeleteMapping("/{pharmacyId}")
-    public ResponseEntity<?> deleteById(@PathVariable Long pharmacyId) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long pharmacyId) {
         Optional<Pharmacy> optionalPharmacy = pharmacyRepository.findById(pharmacyId);
         if (optionalPharmacy.isPresent()) {
             pharmacyRepository.deleteById(pharmacyId);
@@ -52,7 +52,7 @@ public class PharmacyController {
         } else {
             pharmacy.setId(pharmacyId);
             pharmacyRepository.save(pharmacy);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.ok(pharmacy);
         }
     }
 }
