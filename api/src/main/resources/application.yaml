@@ -15,8 +15,6 @@ pharmagator:
       category-fetch-url: /category-menu
       category-path: /cat-prods-by-page
     aptslav:
-      url: https://aptslav.com.ua:3000/api/v1
-      category-fetch-url: /categories
+      url: https://aptslav.com.ua:3000/api/v1/categories
       category-fetch-url-arguments: ?fields=id,name,icon,externalId,children.id,children.name,children.icon&embed=children&take=10&sort=externalId&parentId[equal]=null&active[equal]=true
-      category-path: /products
-      category-path-arguments: ?take=15&skip=0&sort=externalId&inStock=true&fields=name,externalId,viewed,id,images.id,images.filename,images.uri&embed=images
+      category-path: /products?take=15&skip=0&sort=externalId&inStock=true&fields=name,externalId,viewed,id,images.id,images.filename,images.uri&embed=images

@@ -64,6 +64,7 @@ public class PharmacyDSDataProvider implements DataProvider {
 				.bodyToMono(MedicinesResponse.class)
 				.block();
 
+
 		Long total;
 		if (dsMedicinesResponse != null) {
 			total = dsMedicinesResponse.getTotal();
@@ -89,8 +90,6 @@ public class PharmacyDSDataProvider implements DataProvider {
 					.map(this::mapToMedicineDto);
 		}
 		return Stream.of();
-
-
 	}
 
 	private MedicineDto mapToMedicineDto(DSMedicineDto dsMedicineDto) {
@@ -100,5 +99,4 @@ public class PharmacyDSDataProvider implements DataProvider {
 				.title(dsMedicineDto.getName())
 				.build();
 	}
-
 }
