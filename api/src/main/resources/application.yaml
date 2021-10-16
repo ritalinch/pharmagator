@@ -5,7 +5,8 @@ spring:
   datasource:
     url: jdbc:postgresql:pharmagator
     username: postgres
-    password: 12345678
+    password: postgres
+#    password: 12345678
   jpa:
     hibernate:
       ddl-auto: validate
