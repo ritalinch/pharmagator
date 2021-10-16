@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class DSMedicineDto {
 
     private String id;
