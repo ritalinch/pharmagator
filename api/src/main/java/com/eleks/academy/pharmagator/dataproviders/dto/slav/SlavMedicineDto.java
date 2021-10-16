@@ -1,21 +1,16 @@
-package com.eleks.academy.pharmagator.dataproviders.dto.ds;
+package com.eleks.academy.pharmagator.dataproviders.dto.slav;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DSMedicineDto {
+public class SlavMedicineDto {
 
 	private String id;
 	private String name;
-	@JsonProperty("ціна")
-	private BigDecimal price;
-	private String manufacturer;
+	private SlavMecicinePrice price;
 
 }
