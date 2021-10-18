@@ -7,7 +7,7 @@ import org.springframework.test.context.TestPropertySource;
 
 
 @SpringBootTest
-@TestPropertySource(locations = "/application-test.yaml")
+@ActiveProfiles("test")
 class PharmagatorApplicationTests {
     @Test
     void contextLoads() {

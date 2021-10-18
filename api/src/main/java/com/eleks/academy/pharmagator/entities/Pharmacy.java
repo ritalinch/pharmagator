@@ -1,13 +1,13 @@
 package com.eleks.academy.pharmagator.entities;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
+@Data
 @Table(name = "pharmacies")
 public class Pharmacy {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
