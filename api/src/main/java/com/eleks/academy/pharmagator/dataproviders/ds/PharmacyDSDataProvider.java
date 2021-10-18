@@ -1,10 +1,10 @@
-package com.eleks.academy.pharmagator.dataproviders;
+package com.eleks.academy.pharmagator.dataproviders.ds;
 
+import com.eleks.academy.pharmagator.dataproviders.DataProvider;
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSCategoryDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicineDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.general.MedicinesResponse;
-import com.eleks.academy.pharmagator.dataproviders.dto.general.FilterRequest;
+import com.eleks.academy.pharmagator.dataproviders.ds.dto.DSCategoryDto;
+import com.eleks.academy.pharmagator.dataproviders.ds.dto.DSMedicineDto;
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicinesResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,7 +23,7 @@ import java.util.stream.Stream;
 @Qualifier("pharmacyDSDataProvider")
 public class PharmacyDSDataProvider implements DataProvider {
 
-	private final WebClient dsClient;
+	private final WebClient pharmacyDSWebClient;
 
 	@Value("${pharmagator.data-providers.apteka-ds.category-fetch-url}")
 	private String categoriesFetchUrl;
@@ -42,7 +42,7 @@ public class PharmacyDSDataProvider implements DataProvider {
 	}
 
 	private List<DSCategoryDto> fetchCategories() {
-		return this.dsClient.get().uri(categoriesFetchUrl)
+		return this.pharmacyDSWebClient.get().uri(categoriesFetchUrl)
 				.retrieve()
 				.bodyToMono(new ParameterizedTypeReference<List<DSCategoryDto>>() {
 				}).block();
@@ -57,7 +57,7 @@ public class PharmacyDSDataProvider implements DataProvider {
 				.per(100L)
 				.build();
 
-		MedicinesResponse dsMedicinesResponse = this.dsClient.post()
+		MedicinesResponse dsMedicinesResponse = this.pharmacyDSWebClient.post()
 				.uri(categoryPath + "/" + category)
 				.body(Mono.just(filterRequest), FilterRequest.class)
 				.retrieve()
@@ -73,7 +73,7 @@ public class PharmacyDSDataProvider implements DataProvider {
 			List<MedicinesResponse> responseList = new ArrayList<>();
 			long page = 1L;
 			while (page <= pageCount) {
-				MedicinesResponse medicinesResponse = this.dsClient.post()
+				MedicinesResponse medicinesResponse = this.pharmacyDSWebClient.post()
 						.uri(categoryPath + "/" + category)
 						.body(Mono.just(FilterRequest.builder()
 								.page(page)
