@@ -3,7 +3,6 @@ package com.eleks.academy.pharmagator.controllers;
 import com.eleks.academy.pharmagator.entities.Medicine;
 import com.eleks.academy.pharmagator.repositories.MedicineRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/medicines")
@@ -23,7 +21,6 @@ public class MedicineController {
         return ResponseEntity.ok(medicineRepository.findAll());
     }
 
-    @GetMapping("/{medicineId}")
     public ResponseEntity<Medicine> getById(@PathVariable Long medicineId) {
         return ResponseEntity.of(medicineRepository.findById(medicineId));
     }
@@ -56,5 +53,4 @@ public class MedicineController {
             return ResponseEntity.ok(medicine);
         }
     }
-
 }
