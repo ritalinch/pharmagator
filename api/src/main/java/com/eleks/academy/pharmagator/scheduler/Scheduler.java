@@ -9,26 +9,33 @@ import com.eleks.academy.pharmagator.repositories.MedicineRepository;
 import com.eleks.academy.pharmagator.repositories.PriceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
 @Component
 public class Scheduler {
-    private final DataProvider dataProvider;
+    private final List<DataProvider> dataProviders;
     private final MedicineDtoConverter<Price> dtoToPriceConverter;
     private final MedicineDtoConverter<Medicine> dtoToMedicineConverter;
     private final MedicineRepository medicineRepository;
     private final PriceRepository priceRepository;
 
-    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedDelay = 120, timeUnit = TimeUnit.SECONDS)
     public void schedule() {
-        log.info("Scheduler started at {}", Instant.now());
-        dataProvider.loadData().forEach(this::storeToDatabase);
+//        log.info("Scheduler started at {}", Instant.now());
+//        dataProvider.loadData().forEach(this::storeToDatabase);
+        dataProviders.forEach(dataProvider -> {
+            Stream<MedicineDto> medicineDtoStream = dataProvider.loadData();
+//            medicineDtoStream.forEach(this::storeToDatabase);
+        });
     }
 
     private void storeToDatabase(MedicineDto dto) {
