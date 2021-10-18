@@ -21,6 +21,7 @@ public class MedicineController {
         return ResponseEntity.ok(medicineRepository.findAll());
     }
 
+    @GetMapping("/{medicineId}")
     public ResponseEntity<Medicine> getById(@PathVariable Long medicineId) {
         return ResponseEntity.of(medicineRepository.findById(medicineId));
     }
