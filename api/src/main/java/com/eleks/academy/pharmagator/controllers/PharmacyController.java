@@ -21,34 +21,38 @@ public class PharmacyController {
         return ResponseEntity.ok(pharmacyRepository.findAll());
     }
 
-    @GetMapping("/{pharmacyId}")
-    public @ResponseBody ResponseEntity<Optional<Pharmacy>> getById(@PathVariable int pharmacyId) {
-        return ResponseEntity.ok(pharmacyRepository.findById((long) pharmacyId));
+    @GetMapping("/getById")
+    public ResponseEntity<Pharmacy> getById(@RequestParam Long id) {
+        return ResponseEntity.of(pharmacyRepository.findById(id));
     }
 
-    @PostMapping
-    public void create(@RequestParam Pharmacy pharmacy) {
-        pharmacyRepository.save(pharmacy);
+    @PostMapping("/")
+    public ResponseEntity<Pharmacy> create(@RequestBody Pharmacy pharmacy) {
+        return ResponseEntity.ok(pharmacyRepository.save(pharmacy));
     }
+
 
     @DeleteMapping("/{pharmacyId}")
-    public @ResponseBody ResponseEntity.BodyBuilder deleteById(@PathVariable int pharmacyId) {
-        if (pharmacyRepository.existsById((long)pharmacyId)) {
-            pharmacyRepository.deleteById((long)pharmacyId);
-            return ResponseEntity.ok();
+    public ResponseEntity<?> deleteById(@PathVariable Long pharmacyId) {
+        Optional<Pharmacy> optionalPharmacy = pharmacyRepository.findById(pharmacyId);
+        if (optionalPharmacy.isPresent()) {
+            pharmacyRepository.deleteById(pharmacyId);
+            return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.badRequest();
+            return ResponseEntity.notFound().build();
         }
     }
 
-    @PatchMapping("/{pharmacyId}")
-    public @ResponseBody ResponseEntity.BodyBuilder update(@PathVariable int pharmacyId, @RequestParam Pharmacy pharmacy) {
-        if (pharmacyRepository.existsById((long) pharmacyId)) {
-            pharmacy.setId(pharmacyId);
-            create(pharmacy);
-            return ResponseEntity.ok();
+
+    @PutMapping("/{pharmacyId}")
+    public ResponseEntity<Pharmacy> update(@PathVariable Long pharmacyId,@RequestBody Pharmacy pharmacy) {
+        Optional<Pharmacy> optionalById = pharmacyRepository.findById(pharmacyId);
+        if (optionalById.isEmpty()) {
+            return ResponseEntity.notFound().build();
         } else {
-            return ResponseEntity.badRequest();
+            pharmacy.setId(pharmacyId);
+            pharmacyRepository.save(pharmacy);
+            return ResponseEntity.ok().build();
         }
     }
 }
