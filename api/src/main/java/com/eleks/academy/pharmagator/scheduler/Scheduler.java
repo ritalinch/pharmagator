@@ -13,28 +13,24 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-@RequiredArgsConstructor
 @Component
+@RequiredArgsConstructor
 public class Scheduler {
-    private final DataProvider dataProvider;
-    private final MedicineDtoConverter<Price> dtoToPriceConverter;
-    private final MedicineDtoConverter<Medicine> dtoToMedicineConverter;
-    private final MedicineRepository medicineRepository;
-    private final PriceRepository priceRepository;
+
+    private final List<DataProvider> dataProviderList;
 
     @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
     public void schedule() {
         log.info("Scheduler started at {}", Instant.now());
-        dataProvider.loadData().forEach(this::storeToDatabase);
+        dataProviderList.stream().flatMap(DataProvider::loadData).forEach(this::storeToDatabase);
     }
 
     private void storeToDatabase(MedicineDto dto) {
         Price price = dtoToPriceConverter.toEntity(dto);
         Medicine medicine = dtoToMedicineConverter.toEntity(dto);
-//            medicineRepository.save(medicine);
-//            priceRepository.save(price);
     }
 }

@@ -17,7 +17,7 @@ public class PharmacyController {
     private final PharmacyRepository pharmacyRepository;
 
     @GetMapping
-    public ResponseEntity<List<Pharmacy>> getAll() {
+    public @ResponseBody ResponseEntity<List<Pharmacy>> getAll() {
         return ResponseEntity.ok(pharmacyRepository.findAll());
     }
 
