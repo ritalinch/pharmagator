@@ -1,21 +1,19 @@
 package com.eleks.academy.pharmagator.scheduler;
 
 import com.eleks.academy.pharmagator.converters.DtoMapper;
-import com.eleks.academy.pharmagator.converters.MedicineDtoConverter;
-import com.eleks.academy.pharmagator.dataproviders.DataProvider;
+import com.eleks.academy.pharmagator.dataproviders.PharmacyDataProvider;
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.entities.Medicine;
+import com.eleks.academy.pharmagator.entities.Pharmacy;
 import com.eleks.academy.pharmagator.entities.Price;
-import com.eleks.academy.pharmagator.repositories.MedicineDataService;
 import com.eleks.academy.pharmagator.repositories.MedicineRepository;
+import com.eleks.academy.pharmagator.repositories.PharmacyRepository;
 import com.eleks.academy.pharmagator.repositories.PriceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
@@ -24,21 +22,29 @@ import java.util.stream.Stream;
 @RequiredArgsConstructor
 @Component
 public class Scheduler {
-    private final List<DataProvider> dataProviders;
-    private final MedicineDataService medicineDataService;
+    private final List<PharmacyDataProvider> dataProviders;
+    private PharmacyRepository pharmacyRepository;
+    private MedicineRepository medicineRepository;
+    private PriceRepository priceRepository;
+    private DtoMapper mapper;
 
     @Scheduled(fixedDelay = 120, timeUnit = TimeUnit.SECONDS)
     public void schedule() {
         dataProviders.forEach(dataProvider -> {
             Stream<MedicineDto> medicineDtoStream = dataProvider.loadData();
+            Pharmacy pharmacy = dataProvider.getPharmacy();
             medicineDtoStream
-                    .forEach(this::storeToDatabase);
+                    .forEach(medicineDto -> storeToDatabase(medicineDto, pharmacy));
         });
     }
 
-    private void storeToDatabase(MedicineDto dto) {
+    private void storeToDatabase(MedicineDto dto, Pharmacy pharmacy) {
+        Medicine medicine = mapper.toMedicineEntity(dto);
+        medicineRepository.saveAndFlush(medicine);
+        Price price = mapper.toPriceEntity(dto);
 
-//        medicineDataService.saveMedicine(dto);
-//        medicineDataService.savePrice(dto);
+        price.setPharmacyId(pharmacy.getId());
+        price.setMedicineId(medicine.getId());
+        priceRepository.save(price);
     }
 }

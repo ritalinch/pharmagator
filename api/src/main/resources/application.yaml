@@ -10,9 +10,10 @@ pharmagator:
   data-providers:
     aptslav:
       base-url: https://aptslav.com.ua:3000/api/v1
+      title: Аптека "Славутич"
       categories-url: /categories
       medicines-uri: /categories/87/products
-      medicineLinkTemplate: https://aptslav.com.ua:3000/api/v1/products/%d
+      medicineLinkTemplate: https://aptslav.com.ua:3000/api/v1/products/{medicineId}
     apteka-ds:
       url: https://api-int.apteka-ds.com.ua/api/v1
       category-fetch-url: /category-menu

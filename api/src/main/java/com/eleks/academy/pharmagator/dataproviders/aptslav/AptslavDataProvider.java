@@ -1,12 +1,12 @@
 package com.eleks.academy.pharmagator.dataproviders.aptslav;
 
-import com.eleks.academy.pharmagator.dataproviders.DataProvider;
-import com.eleks.academy.pharmagator.dataproviders.aptslav.dto.AptslavResponseBody;
+import com.eleks.academy.pharmagator.dataproviders.PharmacyDataProvider;
 import com.eleks.academy.pharmagator.dataproviders.aptslav.dto.AptslavMedicineDto;
+import com.eleks.academy.pharmagator.dataproviders.aptslav.dto.AptslavResponseBody;
 import com.eleks.academy.pharmagator.dataproviders.aptslav.dto.converters.ApiDtoConverter;
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.entities.Pharmacy;
-import com.eleks.academy.pharmagator.repositories.MedicineDataService;
+import com.eleks.academy.pharmagator.repositories.PharmacyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,21 +15,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @Service
 @Qualifier("aptslavDataProvider")
-public class AptslavDataProvider implements DataProvider {
+public class AptslavDataProvider implements PharmacyDataProvider {
     @Value("${pharmagator.data-providers.aptslav.categories-url}")
     private String categoriesFetchUrl;
     @Value("${pharmagator.data-providers.aptslav.medicines-uri}")
     private String medicinesFetchUri;
     @Value("${pharmagator.data-providers.aptslav.medicineLinkTemplate}")
     private String medicineLinkTemplate;
+    @Value("${pharmagator.data-providers.aptslav.title}")
+    private String pharmacyTitle;
 
     private final WebClient aptslavWebClient;
     private final ApiDtoConverter<AptslavMedicineDto> apiDtoConverter;
+    private final PharmacyRepository pharmacyRepository;
 
     @Override
     public Stream<MedicineDto> loadData() {
@@ -89,5 +93,10 @@ public class AptslavDataProvider implements DataProvider {
                 .block();
     }
 
-
+    @Override
+    public Pharmacy getPharmacy() {
+        Optional<Pharmacy> pharmacyOptional = pharmacyRepository.findByName(pharmacyTitle);
+        return pharmacyOptional.orElseThrow(() ->
+                new RuntimeException("Can`t find pharmacy with title \"" + pharmacyTitle + "\""));
+    }
 }
