@@ -21,20 +21,19 @@ public class MedicineController {
         return ResponseEntity.ok(medicineRepository.findAll());
     }
 
-    public ResponseEntity<Medicine> getById(@PathVariable Long medicineId) {
-        return ResponseEntity.of(medicineRepository.findById(medicineId));
+    @GetMapping("/{medicineId}")
+    public ResponseEntity<Optional<Medicine>> getById(@PathVariable Long medicineId) {
+        return ResponseEntity.ok(medicineRepository.findById(medicineId));
     }
 
-    @PostMapping("/")
-    public ResponseEntity<Medicine> create(@RequestBody Medicine medicine) {
-        return ResponseEntity.ok(medicineRepository.save(medicine));
+    @PostMapping
+    public void create(@RequestParam Medicine medicine) {
+        medicineRepository.save(medicine);
     }
-
 
     @DeleteMapping("/{medicineId}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long medicineId) {
-        Optional<Medicine> optionalMedicine = medicineRepository.findById(medicineId);
-        if (optionalMedicine.isPresent()) {
+    public ResponseEntity deleteById(@PathVariable Long medicineId) {
+        if (medicineRepository.existsById(medicineId)) {
             medicineRepository.deleteById(medicineId);
             return ResponseEntity.noContent().build();
         } else {
@@ -43,14 +42,13 @@ public class MedicineController {
     }
 
     @PutMapping("/{medicineId}")
-    public ResponseEntity<Medicine> update(@PathVariable Long medicineId, @RequestBody Medicine medicine) {
-        Optional<Medicine> optionalById = medicineRepository.findById(medicineId);
-        if (optionalById.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
+    public ResponseEntity update(@PathVariable Long medicineId, @RequestParam Medicine medicine) {
+        if (medicineRepository.existsById(medicineId)) {
             medicine.setId(medicineId);
-            medicineRepository.save(medicine);
-            return ResponseEntity.ok().build();
+            create(medicine);
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
