@@ -1,6 +1,6 @@
 package com.eleks.academy.pharmagator.scheduler;
 
-import com.eleks.academy.pharmagator.converters.DtoMapper;
+import com.eleks.academy.pharmagator.converters.medicine_dto.DtoMapper;
 import com.eleks.academy.pharmagator.dataproviders.PharmacyDataProvider;
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.entities.Medicine;
@@ -16,7 +16,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -30,12 +29,12 @@ public class Scheduler {
 
     @Scheduled(fixedDelay = 120, timeUnit = TimeUnit.SECONDS)
     public void schedule() {
-        dataProviders.forEach(dataProvider -> {
-            Stream<MedicineDto> medicineDtoStream = dataProvider.loadData();
-            Pharmacy pharmacy = dataProvider.getPharmacy();
-            medicineDtoStream
-                    .forEach(medicineDto -> storeToDatabase(medicineDto, pharmacy));
-        });
+//        dataProviders.forEach(dataProvider -> {
+//            Stream<MedicineDto> medicineDtoStream = dataProvider.loadData();
+//            Pharmacy pharmacy = dataProvider.getPharmacy();
+//            medicineDtoStream
+//                    .forEach(medicineDto -> storeToDatabase(medicineDto, pharmacy));
+//        });
     }
 
     private void storeToDatabase(MedicineDto dto, Pharmacy pharmacy) {
