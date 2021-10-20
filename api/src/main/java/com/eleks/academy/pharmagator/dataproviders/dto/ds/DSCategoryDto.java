@@ -11,8 +11,8 @@ import java.util.List;
 @AllArgsConstructor
 public class DSCategoryDto {
 
-	private String name;
-	private String slug;
-	private List<DSCategoryDto> children;
+    private String name;
+    private String slug;
+    private List<DSCategoryDto> children;
 
 }

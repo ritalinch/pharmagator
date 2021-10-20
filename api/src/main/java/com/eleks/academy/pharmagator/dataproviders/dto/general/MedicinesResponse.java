@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 public class MedicinesResponse {
 
-	private Long total;
-	private List<DSMedicineDto> products;
+    private Long total;
+    private List<DSMedicineDto> products;
 
 }

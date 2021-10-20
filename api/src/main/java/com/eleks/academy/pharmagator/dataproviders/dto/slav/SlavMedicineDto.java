@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SlavMedicineDto {
 
-	private String id;
-	private String name;
-	private SlavMecicinePrice price;
+    private String id;
+    private String name;
+    private SlavMecicinePrice price;
 
 }
