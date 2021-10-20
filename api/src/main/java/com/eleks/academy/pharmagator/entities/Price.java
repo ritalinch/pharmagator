@@ -1,6 +1,8 @@
 package com.eleks.academy.pharmagator.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -13,13 +15,15 @@ import java.time.Instant;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "prices")
 @IdClass(PriceId.class)
 public class Price {
     @Id
-    private long pharmacyId;
+    private Long pharmacyId;
     @Id
-    private long medicineId;
+    private Long medicineId;
     private BigDecimal price;
     private String externalId;
     private Instant updatedAt;

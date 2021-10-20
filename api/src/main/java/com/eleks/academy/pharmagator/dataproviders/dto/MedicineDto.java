@@ -2,7 +2,6 @@ package com.eleks.academy.pharmagator.dataproviders.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 

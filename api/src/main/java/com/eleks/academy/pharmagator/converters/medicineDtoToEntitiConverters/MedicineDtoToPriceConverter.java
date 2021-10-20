@@ -6,7 +6,7 @@ import org.modelmapper.ModelMapper;
 
 import java.time.Instant;
 
-public class MedicineDtoToPriceConverter implements MedicineDtoToEntityConverter<Price>{
+public class MedicineDtoToPriceConverter implements MedicineDtoToEntityConverter<Price> {
     @Override
     public Price getEntity(MedicineDto medicineDto) {
         Price price = new ModelMapper().map(medicineDto, Price.class);
