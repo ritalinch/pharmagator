@@ -1,6 +1,6 @@
 package com.eleks.academy.pharmagator.scheduler;
 
-import com.eleks.academy.pharmagator.converters.medicine_dto.DtoMapper;
+import com.eleks.academy.pharmagator.converters.medicine_dto.MedicineDtoMapper;
 import com.eleks.academy.pharmagator.dataproviders.PharmacyDataProvider;
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.entities.Medicine;
@@ -25,7 +25,7 @@ public class Scheduler {
     private PharmacyRepository pharmacyRepository;
     private MedicineRepository medicineRepository;
     private PriceRepository priceRepository;
-    private DtoMapper mapper;
+    private MedicineDtoMapper mapper;
 
     @Scheduled(fixedDelay = 120, timeUnit = TimeUnit.SECONDS)
     public void schedule() {
