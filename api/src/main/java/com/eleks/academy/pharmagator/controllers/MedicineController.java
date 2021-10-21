@@ -1,7 +1,10 @@
 package com.eleks.academy.pharmagator.controllers;
 
+import com.eleks.academy.pharmagator.controllers.requests.MedicineRequest;
 import com.eleks.academy.pharmagator.entities.Medicine;
+import com.eleks.academy.pharmagator.projections.MedicineDto;
 import com.eleks.academy.pharmagator.repositories.MedicineRepository;
+import com.eleks.academy.pharmagator.services.MedicineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,44 +17,39 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @RequestMapping("/medicines")
 public class MedicineController {
-    private final MedicineRepository medicineRepository;
+
+    private final MedicineService medicineService;
 
     @GetMapping
-    public ResponseEntity<List<Medicine>> getAll() {
-        return ResponseEntity.ok(medicineRepository.findAll());
+    public List<MedicineDto> getAll() {
+
+        return medicineService.findAll();
     }
 
     @GetMapping("/{medicineId}")
-    public ResponseEntity<Medicine> getById(@PathVariable Long medicineId) {
-        return ResponseEntity.of(medicineRepository.findById(medicineId));
+    public MedicineDto getById(@PathVariable Long medicineId) {
+
+        return medicineService.findById(medicineId);
     }
 
     @PostMapping("/")
-    public ResponseEntity<Medicine> create(@RequestBody Medicine medicine) {
-        return ResponseEntity.ok(medicineRepository.save(medicine));
+    public MedicineDto create(@RequestBody MedicineRequest medicineRequest) {
+
+        return medicineService.save(medicineRequest);
     }
 
 
     @DeleteMapping("/{medicineId}")
     public ResponseEntity<Void> deleteById(@PathVariable Long medicineId) {
-        Optional<Medicine> optionalMedicine = medicineRepository.findById(medicineId);
-        if (optionalMedicine.isPresent()) {
-            medicineRepository.deleteById(medicineId);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+
+        medicineService.delete(medicineId);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{medicineId}")
-    public ResponseEntity<Medicine> update(@PathVariable Long medicineId, @RequestBody Medicine medicine) {
-        Optional<Medicine> optionalById = medicineRepository.findById(medicineId);
-        if (optionalById.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        } else {
-            medicine.setId(medicineId);
-            medicineRepository.save(medicine);
-            return ResponseEntity.ok(medicine);
-        }
+    public MedicineDto update(@PathVariable Long medicineId, @RequestBody MedicineRequest medicineRequest) {
+
+        return medicineService.update(medicineId, medicineRequest);
     }
 }
