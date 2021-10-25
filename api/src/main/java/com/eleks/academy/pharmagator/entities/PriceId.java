@@ -10,6 +10,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class PriceId implements Serializable {
+
     private Long pharmacyId;
+
     private Long medicineId;
+
 }
