@@ -8,6 +8,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceId implements Serializable {
+
     private Long pharmacyId;
+
     private Long medicineId;
+
 }
