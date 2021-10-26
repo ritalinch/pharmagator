@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+@Data
 @Entity
 @Getter
 @Setter

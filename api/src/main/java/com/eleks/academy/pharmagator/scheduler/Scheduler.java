@@ -1,5 +1,9 @@
 package com.eleks.academy.pharmagator.scheduler;
 
+import com.eleks.academy.pharmagator.controllers.MedicineController;
+import com.eleks.academy.pharmagator.controllers.PriceController;
+import com.eleks.academy.pharmagator.converters.medicine.MedicineDtoToMedicineConverter;
+import com.eleks.academy.pharmagator.converters.medicine.MedicineDtoToPriceConverter;
 import com.eleks.academy.pharmagator.dataproviders.DataProvider;
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import lombok.RequiredArgsConstructor;
