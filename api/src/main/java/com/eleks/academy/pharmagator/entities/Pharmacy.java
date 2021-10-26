@@ -2,24 +2,34 @@ package com.eleks.academy.pharmagator.entities;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+import java.math.BigDecimal;
+import java.time.Instant;
 
 @Data
 @Entity
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "pharmacies")
-public class Pharmacy {
+@Builder
+@Table(name = "prices")
+@IdClass(PriceId.class)
+public class Price {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long pharmacyId;
 
-    private String name;
+    @Id
+    private Long medicineId;
 
-    private String medicineLinkTemplate;
+    private BigDecimal price;
+
+    private String externalId;
+
+    private Instant updatedAt;
 
 }
