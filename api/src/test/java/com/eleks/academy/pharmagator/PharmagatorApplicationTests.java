@@ -10,4 +10,8 @@ import org.springframework.test.context.TestPropertySource;
 @TestPropertySource(locations = "/application-test.yaml")
 class PharmagatorApplicationTests {
 
+    @Test
+    void contextLoads() {
+    }
+
 }
