@@ -1,10 +1,7 @@
 package com.eleks.academy.pharmagator.dataproviders;
 
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSCategoryDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicineDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicinesResponse;
-import com.eleks.academy.pharmagator.dataproviders.dto.ds.FilterRequest;
+import com.eleks.academy.pharmagator.dataproviders.dto.ds.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
