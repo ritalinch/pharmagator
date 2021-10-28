@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Data
 @Entity
 @Getter
 @Setter
