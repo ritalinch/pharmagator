@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,14 @@ import java.util.stream.Collectors;
 public class MedicineControllerService implements ControllerService<Long, MedicineRequestDto, MedicineResponseDto> {
 
     private final MedicineRepository medicineRepository;
+
+    public int getAllByTitle(@Valid String title) {
+        return medicineRepository.countAllByTitle(title);
+    }
+
+    public boolean existsByTitle(@Valid String title) {
+        return medicineRepository.existsByTitle(title);
+    }
 
     @Override
     public List<MedicineResponseDto> getAll() {
@@ -34,7 +43,9 @@ public class MedicineControllerService implements ControllerService<Long, Medici
 
     @Override
     public void create(MedicineRequestDto medicineRequestDto) {
-        medicineRepository.save(medicineRequestDto.getMappedEntity());
+        if(!medicineRepository.existsByTitle(medicineRequestDto.getTitle())) {
+            medicineRepository.save(medicineRequestDto.getMappedEntity());
+        }
     }
 
     @Override

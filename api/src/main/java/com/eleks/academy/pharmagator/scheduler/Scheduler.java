@@ -26,10 +26,12 @@ public class Scheduler {
     private final MedicineControllerService medServe;
     private final PriceControllerService priceServe;
 
-    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
     public void schedule() {
+
         log.info("Scheduler started at {}", Instant.now());
         dataProviderList.stream().flatMap(DataProvider::loadData).forEach(this::storeToDatabase);
+
     }
 
     private void storeToDatabase(MedicineDto dto) {
