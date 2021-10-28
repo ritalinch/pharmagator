@@ -1,6 +1,6 @@
 package com.eleks.academy.pharmagator.dataproviders;
 
-import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+import com.eleks.academy.pharmagator.dto.MedicineDto;
 
 import java.util.stream.Stream;
 

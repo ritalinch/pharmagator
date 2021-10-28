@@ -1,4 +1,4 @@
 package com.eleks.academy.pharmagator.responseEntity;
 
-public interface ResponseDto<T>{
+public interface ResponseDto<T> {
 }

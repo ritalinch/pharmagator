@@ -1,4 +1,4 @@
-package com.eleks.academy.pharmagator.dataproviders;
+package com.eleks.academy.pharmagator.dataproviders.aptslav;
 
 import org.springframework.beans.factory.annotation.Value;
 
