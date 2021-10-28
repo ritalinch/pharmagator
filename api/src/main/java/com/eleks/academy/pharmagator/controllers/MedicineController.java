@@ -39,7 +39,7 @@ public class MedicineController {
 
     @PutMapping("/{medicineId}")
     public ResponseEntity<MedicineResponseDto> update(@PathVariable("id") Long medicineId,
-                                 @Valid @RequestBody MedicineRequestDto medicine) {
+                                                      @Valid @RequestBody MedicineRequestDto medicine) {
         return medicineControllerService.update(medicineId, medicine);
     }
 }

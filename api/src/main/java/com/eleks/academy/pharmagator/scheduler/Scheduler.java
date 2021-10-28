@@ -1,11 +1,11 @@
 package com.eleks.academy.pharmagator.scheduler;
 
-import com.eleks.academy.pharmagator.controllers.MedicineController;
-import com.eleks.academy.pharmagator.controllers.PriceController;
-import com.eleks.academy.pharmagator.converters.medicine.MedicineDtoToMedicineConverter;
-import com.eleks.academy.pharmagator.converters.medicine.MedicineDtoToPriceConverter;
+import com.eleks.academy.pharmagator.converters.medicine.MedicineDto_toMedicineRequestDto;
+import com.eleks.academy.pharmagator.converters.medicine.MedicineDto_toPriceRequestDto;
 import com.eleks.academy.pharmagator.dataproviders.DataProvider;
-import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+import com.eleks.academy.pharmagator.dto.MedicineDto;
+import com.eleks.academy.pharmagator.services.MedicineControllerService;
+import com.eleks.academy.pharmagator.services.PriceControllerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -21,6 +21,10 @@ import java.util.concurrent.TimeUnit;
 public class Scheduler {
 
     private final List<DataProvider> dataProviderList;
+    private final MedicineDto_toMedicineRequestDto medToMed;
+    private final MedicineDto_toPriceRequestDto medToPrice;
+    private final MedicineControllerService medServe;
+    private final PriceControllerService priceServe;
 
     @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
     public void schedule() {
@@ -30,5 +34,7 @@ public class Scheduler {
 
     private void storeToDatabase(MedicineDto dto) {
         log.info(dto.getTitle() + " " + dto.getPrice());
+        medServe.create(medToMed.get(dto));
+//        priceServe.create(medToPrice.get(dto));
     }
 }

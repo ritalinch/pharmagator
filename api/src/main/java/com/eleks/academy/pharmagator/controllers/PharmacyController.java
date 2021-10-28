@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -41,7 +40,7 @@ public class PharmacyController {
 
     @PutMapping("/{pharmacyId}")
     public ResponseEntity<PharmacyResponseDto> update(@PathVariable("id") Long pharmacyId,
-                                           @Valid @RequestBody PharmacyRequestDto pharmacyRequestDto) {
+                                                      @Valid @RequestBody PharmacyRequestDto pharmacyRequestDto) {
         return pharmacyControllerService.update(pharmacyId, pharmacyRequestDto);
     }
 }

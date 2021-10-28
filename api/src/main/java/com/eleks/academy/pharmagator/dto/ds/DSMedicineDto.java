@@ -1,16 +1,19 @@
-package com.eleks.academy.pharmagator.dataproviders.dto.slav;
+package com.eleks.academy.pharmagator.dto.ds;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SlavMedicineDto {
+public class DSMedicineDto {
 
     private String id;
     private String name;
-    private SlavMecicinePrice price;
+    private BigDecimal price;
+    private String manufacturer;
 
 }

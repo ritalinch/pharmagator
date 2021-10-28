@@ -1,4 +1,4 @@
-package com.eleks.academy.pharmagator.dataproviders.dto.slav;
+package com.eleks.academy.pharmagator.dto.slav;
 
 import lombok.Data;
 import lombok.Getter;

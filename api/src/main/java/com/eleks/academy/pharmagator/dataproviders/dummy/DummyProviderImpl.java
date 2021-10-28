@@ -1,6 +1,7 @@
-package com.eleks.academy.pharmagator.dataproviders;
+package com.eleks.academy.pharmagator.dataproviders.dummy;
 
-import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+import com.eleks.academy.pharmagator.dataproviders.DataProvider;
+import com.eleks.academy.pharmagator.dto.MedicineDto;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

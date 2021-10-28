@@ -25,7 +25,7 @@ public class PriceController {
 
     @GetMapping("/pharmacies/{pharmacyId}/medicines/{medicineId}")
     public ResponseEntity<PriceResponseDto> getById(@PathVariable("medicineId") Long medicineId,
-                                                   @PathVariable("pharmacyId") Long pharmacyId) {
+                                                    @PathVariable("pharmacyId") Long pharmacyId) {
         return priceControllerService.getById(new PriceId(medicineId, pharmacyId));
     }
 
@@ -42,8 +42,8 @@ public class PriceController {
 
     @PutMapping("/pharmacies/{pharmacyId}/medicines/{medicineId}")
     public ResponseEntity<PriceResponseDto> update(@PathVariable("medicineId") Long medicineId,
-                                 @PathVariable("pharmacyId") Long pharmacyId,
-                                 @Valid @RequestBody PriceRequestDto priceRequestDto) {
+                                                   @PathVariable("pharmacyId") Long pharmacyId,
+                                                   @Valid @RequestBody PriceRequestDto priceRequestDto) {
         return priceControllerService.update(new PriceId(medicineId, pharmacyId), priceRequestDto);
     }
 }
