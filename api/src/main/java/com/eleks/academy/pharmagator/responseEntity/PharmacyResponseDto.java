@@ -18,4 +18,5 @@ public class PharmacyResponseDto implements ResponseDto<Pharmacy> {
         this.id = pharmacy.getId();
         this.name = pharmacy.getName();
     }
+
 }

@@ -97,8 +97,6 @@ public class PharmacyDSDataProvider implements DataProvider {
                     .map(this::mapToMedicineDto);
         }
         return Stream.of();
-
-
     }
 
     private MedicineDto mapToMedicineDto(DSMedicineDto dsMedicineDto) {
