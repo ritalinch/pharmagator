@@ -13,7 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 public class MedicineServiceTest {
 
     @Autowired
-    MedicineControllerService service;
+    MedicineService service;
 
     MedicineRequestDto sampleDto;
 
