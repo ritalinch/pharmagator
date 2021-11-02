@@ -1,4 +1,4 @@
-package com.eleks.academy.pharmagator.dto.general;
+package com.eleks.academy.pharmagator.dataproviders.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
