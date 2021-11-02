@@ -49,12 +49,9 @@ public class MedicineService implements ControllerService<Long, MedicineRequestD
     }
 
     @Override
-    public ResponseEntity deleteById(Long id) {
+    public void deleteById(Long id) {
         if (medicineRepository.existsById(id)) {
             medicineRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
     }
 

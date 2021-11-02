@@ -23,7 +23,7 @@ public class PharmacyController {
     }
 
     @GetMapping("/{pharmacyId}")
-    public ResponseEntity<PharmacyResponseDto> getById(@PathVariable("id") Long pharmacyId) {
+    public ResponseEntity<PharmacyResponseDto> getById(@PathVariable Long pharmacyId) {
         return pharmacyService.getById(pharmacyId);
 
     }
@@ -34,12 +34,12 @@ public class PharmacyController {
     }
 
     @DeleteMapping("/{pharmacyId}")
-    public ResponseEntity deleteById(@PathVariable("id") Long pharmacyId) {
-        return pharmacyService.deleteById(pharmacyId);
+    public void deleteById(@PathVariable Long pharmacyId) {
+        pharmacyService.deleteById(pharmacyId);
     }
 
     @PutMapping("/{pharmacyId}")
-    public ResponseEntity<PharmacyResponseDto> update(@PathVariable("id") Long pharmacyId,
+    public ResponseEntity<PharmacyResponseDto> update(@PathVariable Long pharmacyId,
                                                       @Valid @RequestBody PharmacyRequestDto pharmacyRequestDto) {
         return pharmacyService.update(pharmacyId, pharmacyRequestDto);
     }

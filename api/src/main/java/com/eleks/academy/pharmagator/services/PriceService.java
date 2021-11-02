@@ -39,12 +39,9 @@ public class PriceService implements ControllerService<PriceId, PriceRequestDto,
     }
 
     @Override
-    public ResponseEntity deleteById(PriceId id) {
+    public void deleteById(PriceId id) {
         if (priceRepository.existsByMedicineIdAndPharmacyId(id.getMedicineId(), id.getPharmacyId())) {
             priceRepository.deleteByMedicineIdAndPharmacyId(id.getMedicineId(), id.getPharmacyId());
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
     }
 

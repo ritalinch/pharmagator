@@ -35,9 +35,9 @@ public class PriceController {
     }
 
     @DeleteMapping("/pharmacies/{pharmacyId}/medicines/{medicineId}")
-    public ResponseEntity deleteById(@PathVariable("medicineId") Long medicineId,
+    public void deleteById(@PathVariable("medicineId") Long medicineId,
                                      @PathVariable("pharmacyId") Long pharmacyId) {
-        return priceService.deleteById(new PriceId(medicineId, pharmacyId));
+        priceService.deleteById(new PriceId(medicineId, pharmacyId));
     }
 
     @PutMapping("/pharmacies/{pharmacyId}/medicines/{medicineId}")

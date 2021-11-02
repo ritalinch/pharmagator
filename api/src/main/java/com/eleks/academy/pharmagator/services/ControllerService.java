@@ -11,7 +11,7 @@ public interface ControllerService<I, Req, Resp> {
 
     void create(Req req);
 
-    ResponseEntity deleteById(I id);
+    void deleteById(I id);
 
     ResponseEntity<Resp> update(I id, Req entity);
 }

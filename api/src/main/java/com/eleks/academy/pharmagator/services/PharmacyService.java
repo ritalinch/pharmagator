@@ -38,12 +38,9 @@ public class PharmacyService implements ControllerService<Long, PharmacyRequestD
     }
 
     @Override
-    public ResponseEntity deleteById(Long id) {
+    public void deleteById(Long id) {
         if (pharmacyRepository.existsById(id)) {
             pharmacyRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
         }
     }
 
