@@ -43,7 +43,7 @@ public class MedicineControllerService implements ControllerService<Long, Medici
 
     @Override
     public void create(MedicineRequestDto medicineRequestDto) {
-        if(!medicineRepository.existsByTitle(medicineRequestDto.getTitle())) {
+        if (!medicineRepository.existsByTitle(medicineRequestDto.getTitle())) {
             medicineRepository.save(medicineRequestDto.getMappedEntity());
         }
     }
