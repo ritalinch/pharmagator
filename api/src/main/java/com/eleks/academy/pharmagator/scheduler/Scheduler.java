@@ -23,8 +23,10 @@ import java.util.concurrent.TimeUnit;
 public class Scheduler {
 
     private final List<DataProvider> dataProviderList;
+
     private final MedicineDto_toMedicineRequestDto medToMed;
     private final MedicineDto_toPriceRequestDto medToPrice;
+
     private final MedicineService medServe;
     private final PriceService priceServe;
 
@@ -43,4 +45,5 @@ public class Scheduler {
         medServe.create(medToMed.get(dto));
 //        priceServe.create(medToPrice.get(dto));
     }
+
 }

@@ -12,7 +12,9 @@ import java.util.List;
 public class DSCategoryDto {
 
     private String name;
+
     private String slug;
+
     private List<DSCategoryDto> children;
 
 }

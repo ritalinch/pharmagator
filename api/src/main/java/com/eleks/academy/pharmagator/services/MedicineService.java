@@ -61,4 +61,5 @@ public class MedicineService implements ControllerService<Long, MedicineRequestD
                 .map(m -> ResponseEntity.ok(entity.getMappedDtoEntity()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 }

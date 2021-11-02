@@ -6,8 +6,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MedicineDto_toMedicineRequestDto implements MedicineDto_toRequestDtoConverter<MedicineRequestDto> {
+
     @Override
     public MedicineRequestDto get(MedicineDto dto) {
         return new MedicineRequestDto(dto.getTitle());
     }
+
 }

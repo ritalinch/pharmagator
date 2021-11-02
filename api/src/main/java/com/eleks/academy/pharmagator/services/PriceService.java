@@ -51,4 +51,5 @@ public class PriceService implements ControllerService<PriceId, PriceRequestDto,
                 .map(p -> ResponseEntity.ok(entity.getMappedDtoEntity()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 }

@@ -9,9 +9,11 @@ import java.util.Optional;
 
 @Repository
 public interface PriceRepository extends JpaRepository<Price, PriceId> {
+
     Optional<Price> findAllByMedicineIdAndPharmacyId(long medicineId, long pharmacyId);
 
     boolean existsByMedicineIdAndPharmacyId(long medicineId, long pharmacyId);
 
     void deleteByMedicineIdAndPharmacyId(long medicineId, long pharmacyId);
+
 }

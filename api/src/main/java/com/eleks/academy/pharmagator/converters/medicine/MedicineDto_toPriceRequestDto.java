@@ -8,6 +8,7 @@ import java.time.Instant;
 
 @Component
 public class MedicineDto_toPriceRequestDto implements MedicineDto_toRequestDtoConverter<PriceRequestDto> {
+
     @Override
     public PriceRequestDto get(MedicineDto dto) {
         PriceRequestDto price = new PriceRequestDto();
@@ -16,4 +17,5 @@ public class MedicineDto_toPriceRequestDto implements MedicineDto_toRequestDtoCo
         price.setUpdatedAt(Instant.now());
         return price;
     }
+
 }

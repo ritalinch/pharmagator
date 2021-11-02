@@ -42,4 +42,5 @@ public class MedicineController {
                                                       @Valid @RequestBody MedicineRequestDto medicine) {
         return medicineService.update(medicineId, medicine);
     }
+
 }

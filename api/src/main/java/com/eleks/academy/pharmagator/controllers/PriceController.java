@@ -46,4 +46,5 @@ public class PriceController {
                                                    @Valid @RequestBody PriceRequestDto priceRequestDto) {
         return priceService.update(new PriceId(medicineId, pharmacyId), priceRequestDto);
     }
+
 }

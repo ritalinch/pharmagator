@@ -19,6 +19,7 @@ public class Medicine {
 
     @Id
     private Long id;
+
     private String title;
 
 }

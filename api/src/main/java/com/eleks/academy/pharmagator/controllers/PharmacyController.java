@@ -43,4 +43,5 @@ public class PharmacyController {
                                                       @Valid @RequestBody PharmacyRequestDto pharmacyRequestDto) {
         return pharmacyService.update(pharmacyId, pharmacyRequestDto);
     }
+
 }
