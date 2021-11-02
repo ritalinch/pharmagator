@@ -3,7 +3,10 @@ package com.eleks.academy.pharmagator.services;
 import com.eleks.academy.pharmagator.repositories.MedicineRepository;
 import com.eleks.academy.pharmagator.requestEntities.MedicineRequestDto;
 import com.eleks.academy.pharmagator.responseEntity.MedicineResponseDto;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MedicineControllerService implements ControllerService<Long, MedicineRequestDto, MedicineResponseDto> {
+public class MedicineService implements ControllerService<Long, MedicineRequestDto, MedicineResponseDto> {
 
     private final MedicineRepository medicineRepository;
 

@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PharmacyControllerService implements ControllerService<Long, PharmacyRequestDto, PharmacyResponseDto> {
+public class PharmacyService implements ControllerService<Long, PharmacyRequestDto, PharmacyResponseDto> {
 
     private final PharmacyRepository pharmacyRepository;
 

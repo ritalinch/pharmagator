@@ -4,8 +4,8 @@ import com.eleks.academy.pharmagator.converters.medicine.MedicineDto_toMedicineR
 import com.eleks.academy.pharmagator.converters.medicine.MedicineDto_toPriceRequestDto;
 import com.eleks.academy.pharmagator.dataproviders.DataProvider;
 import com.eleks.academy.pharmagator.dto.MedicineDto;
-import com.eleks.academy.pharmagator.services.MedicineControllerService;
-import com.eleks.academy.pharmagator.services.PriceControllerService;
+import com.eleks.academy.pharmagator.services.MedicineService;
+import com.eleks.academy.pharmagator.services.PriceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -23,8 +23,8 @@ public class Scheduler {
     private final List<DataProvider> dataProviderList;
     private final MedicineDto_toMedicineRequestDto medToMed;
     private final MedicineDto_toPriceRequestDto medToPrice;
-    private final MedicineControllerService medServe;
-    private final PriceControllerService priceServe;
+    private final MedicineService medServe;
+    private final PriceService priceServe;
 
     @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.SECONDS)
     public void schedule() {
