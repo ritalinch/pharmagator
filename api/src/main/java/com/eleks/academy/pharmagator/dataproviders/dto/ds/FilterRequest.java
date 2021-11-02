@@ -1,18 +1,17 @@
 package com.eleks.academy.pharmagator.dataproviders.dto.ds;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DSMedicinesResponse {
+public class FilterRequest {
 
-    private Long total;
-
-    private List<DSMedicineDto> products;
+    private Long page;
+    private Long per;
 
 }

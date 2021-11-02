@@ -1,11 +1,7 @@
-package com.eleks.academy.pharmagator.dataproviders.ds;
+package com.eleks.academy.pharmagator.dataproviders;
 
-import com.eleks.academy.pharmagator.dataproviders.DataProvider;
-import com.eleks.academy.pharmagator.dto.MedicineDto;
-import com.eleks.academy.pharmagator.dto.ds.DSCategoryDto;
-import com.eleks.academy.pharmagator.dto.ds.DSMedicineDto;
-import com.eleks.academy.pharmagator.dto.ds.DSMedicinesResponse;
-import com.eleks.academy.pharmagator.dto.general.FilterRequest;
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+import com.eleks.academy.pharmagator.dataproviders.dto.ds.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,7 +20,7 @@ import java.util.stream.Stream;
 @Qualifier("pharmacyDSDataProvider")
 public class PharmacyDSDataProvider implements DataProvider {
 
-    private final WebClient pharmacyDSWebClient;
+    private final WebClient dsClient;
 
     @Value("${pharmagator.data-providers.apteka-ds.category-fetch-url}")
     private String categoriesFetchUrl;
@@ -36,16 +32,15 @@ public class PharmacyDSDataProvider implements DataProvider {
     public Stream<MedicineDto> loadData() {
         return this.fetchCategories().stream()
                 .filter(categoryDto -> categoryDto.getName().equals("Медикаменти"))
-                .map(DSCategoryDto::getChildren)
+                .map(CategoryDto::getChildren)
                 .flatMap(Collection::stream)
-                .map(DSCategoryDto::getSlug)
+                .map(CategoryDto::getSlug)
                 .flatMap(this::fetchMedicinesByCategory);
     }
 
-    private List<DSCategoryDto> fetchCategories() {
-        return this.pharmacyDSWebClient.get().uri(categoriesFetchUrl)
-                .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<List<DSCategoryDto>>() {
+    private List<CategoryDto> fetchCategories() {
+        return this.dsClient.get().uri(categoriesFetchUrl)
+                .retrieve().bodyToMono(new ParameterizedTypeReference<List<CategoryDto>>() {
                 }).block();
     }
 
@@ -58,13 +53,12 @@ public class PharmacyDSDataProvider implements DataProvider {
                 .per(100L)
                 .build();
 
-        DSMedicinesResponse dsMedicinesResponse = this.pharmacyDSWebClient.post()
+        DSMedicinesResponse dsMedicinesResponse = this.dsClient.post()
                 .uri(categoryPath + "/" + category)
                 .body(Mono.just(filterRequest), FilterRequest.class)
                 .retrieve()
                 .bodyToMono(DSMedicinesResponse.class)
                 .block();
-
 
         Long total;
         if (dsMedicinesResponse != null) {
@@ -74,7 +68,7 @@ public class PharmacyDSDataProvider implements DataProvider {
             List<DSMedicinesResponse> responseList = new ArrayList<>();
             long page = 1L;
             while (page <= pageCount) {
-                DSMedicinesResponse singleMedicinesResponse = this.pharmacyDSWebClient.post()
+                DSMedicinesResponse medicinesResponse = this.dsClient.post()
                         .uri(categoryPath + "/" + category)
                         .body(Mono.just(FilterRequest.builder()
                                 .page(page)
@@ -83,16 +77,16 @@ public class PharmacyDSDataProvider implements DataProvider {
                         .retrieve()
                         .bodyToMono(DSMedicinesResponse.class)
                         .block();
-                responseList.add(singleMedicinesResponse);
+                responseList.add(medicinesResponse);
                 page++;
             }
-
-            return responseList.stream()
-                    .map(DSMedicinesResponse::getProducts)
+            return responseList.stream().map(DSMedicinesResponse::getProducts)
                     .flatMap(Collection::stream)
                     .map(this::mapToMedicineDto);
         }
         return Stream.of();
+
+
     }
 
     private MedicineDto mapToMedicineDto(DSMedicineDto dsMedicineDto) {
@@ -102,4 +96,5 @@ public class PharmacyDSDataProvider implements DataProvider {
                 .title(dsMedicineDto.getName())
                 .build();
     }
+
 }

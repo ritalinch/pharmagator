@@ -9,10 +9,10 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DSMedicinesResponse {
+public class CategoryDto {
 
-    private Long total;
-
-    private List<DSMedicineDto> products;
+    private String name;
+    private String slug;
+    private List<CategoryDto> children;
 
 }
