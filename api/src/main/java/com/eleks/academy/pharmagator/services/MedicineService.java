@@ -22,4 +22,27 @@ public interface MedicineService {
 
     void deleteById(Long id);
 
+<<<<<<< HEAD
+=======
+    @Override
+    public void create(MedicineRequestDto medicineRequestDto) {
+        if (!medicineRepository.existsByTitle(medicineRequestDto.getTitle())) {
+            medicineRepository.save(medicineRequestDto.getMappedEntity());
+        }
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        if (medicineRepository.existsById(id)) {
+            medicineRepository.deleteById(id);
+        }
+    }
+
+    @Override
+    public ResponseEntity<MedicineResponseDto> update(Long id, MedicineRequestDto entity) {
+        return this.medicineRepository.findById(id)
+                .map(m -> ResponseEntity.ok(entity.getMappedDtoEntity()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+>>>>>>> 6efd804 (Fix "delete" methods in controllers and services)
 }
