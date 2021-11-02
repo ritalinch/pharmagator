@@ -3,10 +3,7 @@ package com.eleks.academy.pharmagator.services;
 import com.eleks.academy.pharmagator.repositories.MedicineRepository;
 import com.eleks.academy.pharmagator.requestEntities.MedicineRequestDto;
 import com.eleks.academy.pharmagator.responseEntity.MedicineResponseDto;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -46,7 +43,7 @@ public class MedicineService implements ControllerService<Long, MedicineRequestD
 
     @Override
     public void create(MedicineRequestDto medicineRequestDto) {
-        if(!medicineRepository.existsByTitle(medicineRequestDto.getTitle())) {
+        if (!medicineRepository.existsByTitle(medicineRequestDto.getTitle())) {
             medicineRepository.save(medicineRequestDto.getMappedEntity());
         }
     }

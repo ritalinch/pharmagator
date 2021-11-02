@@ -18,3 +18,6 @@ pharmagator:
       base-url: https://aptslav.com.ua:3000/api/v1
       categories-url: /categories
       medicines-uri: /categories/87/products
+    anc:
+      url: https://anc.ua
+      category-path: /productbrowser/v2/ua/categories
