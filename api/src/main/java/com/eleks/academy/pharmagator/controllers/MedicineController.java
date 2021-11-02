@@ -2,7 +2,7 @@ package com.eleks.academy.pharmagator.controllers;
 
 import com.eleks.academy.pharmagator.requestEntities.MedicineRequestDto;
 import com.eleks.academy.pharmagator.responseEntity.MedicineResponseDto;
-import com.eleks.academy.pharmagator.services.MedicineControllerService;
+import com.eleks.academy.pharmagator.services.MedicineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,31 +15,31 @@ import java.util.List;
 @RequestMapping("/medicines")
 public class MedicineController {
 
-    private final MedicineControllerService medicineControllerService;
+    private final MedicineService medicineService;
 
     @GetMapping
     public List<MedicineResponseDto> getAll() {
-        return medicineControllerService.getAll();
+        return medicineService.getAll();
     }
 
     @GetMapping("/{medicineId}")
     public ResponseEntity<MedicineResponseDto> getById(@PathVariable("id") Long medicineId) {
-        return medicineControllerService.getById(medicineId);
+        return medicineService.getById(medicineId);
     }
 
     @PostMapping
     public void create(@Valid @RequestBody MedicineRequestDto medicine) {
-        medicineControllerService.create(medicine);
+        medicineService.create(medicine);
     }
 
     @DeleteMapping("/{medicineId}")
     public ResponseEntity deleteById(@PathVariable("id") Long medicineId) {
-        return medicineControllerService.deleteById(medicineId);
+        return medicineService.deleteById(medicineId);
     }
 
     @PutMapping("/{medicineId}")
     public ResponseEntity<MedicineResponseDto> update(@PathVariable("id") Long medicineId,
                                                       @Valid @RequestBody MedicineRequestDto medicine) {
-        return medicineControllerService.update(medicineId, medicine);
+        return medicineService.update(medicineId, medicine);
     }
 }

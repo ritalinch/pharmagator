@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MedicineControllerService implements ControllerService<Long, MedicineRequestDto, MedicineResponseDto> {
+public class MedicineService implements ControllerService<Long, MedicineRequestDto, MedicineResponseDto> {
 
     private final MedicineRepository medicineRepository;
 

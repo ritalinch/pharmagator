@@ -6,14 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest
-@ActiveProfiles("test")
+@TestPropertySource(locations = "/application-test.yaml")
 public class MedicineServiceTest {
 
     @Autowired
-    MedicineControllerService service;
+    MedicineService service;
 
     MedicineRequestDto sampleDto;
 
@@ -31,7 +31,7 @@ public class MedicineServiceTest {
 
     @Test
     public void test_allValuesAreDistinct() {
-        for(int i = 0; i < 5; i++) {
+        for (int i = 0; i < 5; i++) {
             service.create(sampleDto);
         }
 

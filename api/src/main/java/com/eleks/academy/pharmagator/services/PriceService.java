@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class PriceControllerService implements ControllerService<PriceId, PriceRequestDto, PriceResponseDto> {
+public class PriceService implements ControllerService<PriceId, PriceRequestDto, PriceResponseDto> {
 
     private final PriceRepository priceRepository;
 
