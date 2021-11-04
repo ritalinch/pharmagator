@@ -4,7 +4,6 @@ import com.eleks.academy.pharmagator.dto.MedicineDto;
 import com.eleks.academy.pharmagator.parsers.HtmlPageParser;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +25,7 @@ public class SocialnaParser implements HtmlPageParser {
 
     public int getNumberOfPages() {
         try {
-            Document document = Jsoup.connect(pharmacySocialnaBaseUrl).get();
-            Element amountElement = document.select("div.pager > p.amount").first();
+            Element amountElement = Jsoup.connect(pharmacySocialnaBaseUrl).get().select("div.pager > p.amount").first();
             String ans = amountElement.ownText().trim();
             Matcher matcher = Pattern.compile("[0-9]+$").matcher(ans);
             matcher.find();
@@ -53,8 +51,7 @@ public class SocialnaParser implements HtmlPageParser {
     @Override
     public Stream<MedicineDto> getMedicinesFromPageByUrl(String url) {
         try {
-            Document document = Jsoup.connect(url).get();
-            return document.select(".product-item-details").stream()
+            return Jsoup.connect(url).get().select(".product-item-details").stream()
                     .filter(e -> !e.children().eachText().contains("Відсутній на складі"))
                     .map(this::mapElementToMedicineDto);
 
@@ -72,4 +69,5 @@ public class SocialnaParser implements HtmlPageParser {
                 .externalId(element.select("span.gproductid").first().ownText())
                 .build();
     }
+
 }

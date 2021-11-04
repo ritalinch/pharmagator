@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "pharmagator.data-providers.apteka-ds.category-fetch-url",
+      "type": "java.lang.String",
+      "description": "Description for pharmagator.data-providers.apteka-ds.category-fetch-url."
+  }
+] }

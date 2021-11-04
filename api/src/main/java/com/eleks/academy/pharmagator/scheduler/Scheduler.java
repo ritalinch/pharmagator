@@ -26,7 +26,7 @@ public class Scheduler {
     private final MedicineService medServe;
     private final PriceService priceServe;
 
-    @Scheduled(fixedDelay = 1, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedDelay = 10, timeUnit = TimeUnit.MINUTES)
     public void schedule() {
 
         log.info("Scheduler started at {}", Instant.now());
