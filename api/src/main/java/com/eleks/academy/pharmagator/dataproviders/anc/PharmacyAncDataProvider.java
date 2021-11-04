@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 public class PharmacyAncDataProvider implements DataProvider {
 
     private WebClient pharmacyAncWebClient;
+
     @Value("${pharmagator.data-providers.anc.category-path}")
     private String categoryPathUrl;
 

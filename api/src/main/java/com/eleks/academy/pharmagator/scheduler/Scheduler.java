@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class Scheduler {
 
-    private final List<DataProvider> dataProviderList;
+    private final List<DataProvider> dataProvidersList;
     private final MedicineDto_toMedicineRequestDto medToMed;
     private final MedicineDto_toPriceRequestDto medToPrice;
     private final MedicineService medServe;
@@ -30,7 +30,7 @@ public class Scheduler {
     public void schedule() {
 
         log.info("Scheduler started at {}", Instant.now());
-        dataProviderList.stream()
+        dataProvidersList.stream()
                 .flatMap(DataProvider::loadData)
                 .forEach(this::storeToDatabase);
 

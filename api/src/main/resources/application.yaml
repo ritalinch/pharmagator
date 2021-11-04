@@ -21,3 +21,5 @@ pharmagator:
     anc:
       url: https://anc.ua
       category-path: /productbrowser/v2/ua/categories
+    socialna:
+      url: https://1sa.com.ua/medikamenty
