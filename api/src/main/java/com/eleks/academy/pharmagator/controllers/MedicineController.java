@@ -1,45 +1,57 @@
 package com.eleks.academy.pharmagator.controllers;
 
-import com.eleks.academy.pharmagator.requestEntities.MedicineRequestDto;
-import com.eleks.academy.pharmagator.responseEntity.MedicineResponseDto;
-import com.eleks.academy.pharmagator.services.MedicineControllerService;
+import com.eleks.academy.pharmagator.dataproviders.dto.input.MedicineDto;
+import com.eleks.academy.pharmagator.services.MedicineService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/medicines")
+@RequiredArgsConstructor
 public class MedicineController {
 
-    private final MedicineControllerService medicineControllerService;
+    private final MedicineService medicineService;
+    private final ModelMapper modelMapper;
 
     @GetMapping
-    public List<MedicineResponseDto> getAll() {
-        return medicineControllerService.getAll();
+    public List<MedicineDto> getAll() {
+        return medicineService.findAll().stream()
+                .map(medicine -> modelMapper.map(medicine, MedicineDto.class))
+                .collect(Collectors.toList());
     }
 
-    @GetMapping("/{medicineId}")
-    public ResponseEntity<MedicineResponseDto> getById(@PathVariable("id") Long medicineId) {
-        return medicineControllerService.getById(medicineId);
+    @GetMapping("/{id:[\\d]+}")
+    public ResponseEntity<MedicineDto> getById(@PathVariable Long id) {
+        return medicineService.findById(id)
+                .map(medicine -> ResponseEntity.ok(modelMapper.map(medicine, MedicineDto.class)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public void create(@Valid @RequestBody MedicineRequestDto medicine) {
-        medicineControllerService.create(medicine);
+    public MedicineDto create(@Valid @RequestBody MedicineDto medicineDto) {
+        return modelMapper.map(medicineService.save(medicineDto), MedicineDto.class);
     }
 
-    @DeleteMapping("/{medicineId}")
-    public ResponseEntity deleteById(@PathVariable("id") Long medicineId) {
-        return medicineControllerService.deleteById(medicineId);
+    @PutMapping("/{id:[\\d]+}")
+    public ResponseEntity<MedicineDto> update(
+            @PathVariable Long id,
+            @Valid @RequestBody MedicineDto medicineDto) {
+
+        return medicineService.update(id, medicineDto)
+                .map(medicine -> ResponseEntity.ok(modelMapper.map(medicine, MedicineDto.class)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{medicineId}")
-    public ResponseEntity<MedicineResponseDto> update(@PathVariable("id") Long medicineId,
-                                 @Valid @RequestBody MedicineRequestDto medicine) {
-        return medicineControllerService.update(medicineId, medicine);
+    @DeleteMapping("/{id:[\\d]+}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        medicineService.delete(id);
+        return ResponseEntity.noContent().build();
     }
+
 }
