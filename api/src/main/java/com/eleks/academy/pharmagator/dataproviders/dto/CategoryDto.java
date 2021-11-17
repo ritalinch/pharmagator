@@ -1,4 +1,4 @@
-package com.eleks.academy.pharmagator.dataproviders.dto.slav;
+package com.eleks.academy.pharmagator.dataproviders.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SlavCategoryDto {
+public class CategoryDto {
 
-    private int id;
     private String name;
-    private List<SlavCategoryDto> children;
+
+    private String slug;
+
+    private List<CategoryDto> children;
 
 }

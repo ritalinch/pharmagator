@@ -18,4 +18,5 @@ public class MedicineResponseDto implements ResponseDto {
         this.id = medicine.getId();
         this.title = medicine.getTitle();
     }
+
 }

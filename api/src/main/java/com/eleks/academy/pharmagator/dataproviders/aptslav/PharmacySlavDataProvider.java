@@ -1,8 +1,9 @@
-package com.eleks.academy.pharmagator.dataproviders;
+package com.eleks.academy.pharmagator.dataproviders.aptslav;
 
 import org.springframework.beans.factory.annotation.Value;
 
 public class PharmacySlavDataProvider {
+
     @Value("${pharmagator.data-providers.apteka-ds.url}")
     private String baseUrl;
 

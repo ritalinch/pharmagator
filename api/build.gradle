@@ -44,6 +44,7 @@ dependencies {
     testImplementation 'com.h2database:h2:1.4.200'
     implementation 'org.modelmapper:modelmapper:2.4.4'
     testImplementation 'org.dbunit:dbunit:2.7.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 }
 
 test {

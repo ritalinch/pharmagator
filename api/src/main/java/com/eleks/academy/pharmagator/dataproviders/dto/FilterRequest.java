@@ -1,4 +1,4 @@
-package com.eleks.academy.pharmagator.dataproviders.dto.ds;
+package com.eleks.academy.pharmagator.dataproviders.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class FilterRequest {
 
     private Long page;
+
     private Long per;
 
 }
