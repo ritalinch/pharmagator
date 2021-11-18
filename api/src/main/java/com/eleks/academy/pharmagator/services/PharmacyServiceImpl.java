@@ -36,7 +36,7 @@ public class PharmacyServiceImpl implements PharmacyService {
     @Override
     public Optional<Pharmacy> update(Long id, PharmacyDto pharmacyDto) {
         return pharmacyRepository.findById(id)
-                .map(ph ->{
+                .map(ph -> {
                     Pharmacy pharmacy = modelMapper.map(pharmacyDto, Pharmacy.class);
                     pharmacy.setId(id);
                     return pharmacyRepository.save(pharmacy);

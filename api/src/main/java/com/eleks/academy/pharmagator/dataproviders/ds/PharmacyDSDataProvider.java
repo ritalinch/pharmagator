@@ -1,11 +1,11 @@
 package com.eleks.academy.pharmagator.dataproviders.ds;
 
 import com.eleks.academy.pharmagator.dataproviders.DataProvider;
-import com.eleks.academy.pharmagator.dataproviders.dto.CategoryDto;
-import com.eleks.academy.pharmagator.dataproviders.dto.FilterRequest;
-import com.eleks.academy.pharmagator.dto.MedicineDto;
-import com.eleks.academy.pharmagator.dto.ds.DSMedicineDto;
-import com.eleks.academy.pharmagator.dto.ds.DSMedicinesResponse;
+import com.eleks.academy.pharmagator.dataproviders.dto.ds.CategoryDto;
+import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicineDto;
+import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicinesResponse;
+import com.eleks.academy.pharmagator.dataproviders.dto.ds.FilterRequest;
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,9 +15,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -93,6 +93,8 @@ public class PharmacyDSDataProvider implements DataProvider {
                     .map(this::mapToMedicineDto);
         }
         return Stream.of();
+
+
     }
 
     private MedicineDto mapToMedicineDto(DSMedicineDto dsMedicineDto) {
