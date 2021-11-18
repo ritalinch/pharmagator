@@ -4,11 +4,9 @@ import lombok.*;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
-@NoArgsConstructor
+@Data
 @AllArgsConstructor
-@EqualsAndHashCode
+@NoArgsConstructor
 public class PriceId implements Serializable {
 
     private Long pharmacyId;
