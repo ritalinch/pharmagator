@@ -15,5 +15,5 @@ public interface PriceService {
     Optional<Price> update(Long pharmacyId, Long medicineId, PriceDto priceDto);
 
     void deleteById(Long pharmacyId, Long medicineId);
-    
+
 }

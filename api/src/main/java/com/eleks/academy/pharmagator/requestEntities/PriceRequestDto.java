@@ -15,10 +15,10 @@ import java.time.Instant;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PriceRequestDto implements RequestDto<Price, PriceResponseDto> {
-    
+
     @NotEmpty
     private Long medicineId;
-    
+
     @NotEmpty
     private Long pharmacyId;
 
@@ -30,7 +30,7 @@ public class PriceRequestDto implements RequestDto<Price, PriceResponseDto> {
 
     @NotEmpty
     private Instant updatedAt;
-    
+
     public Price getMappedEntity() {
         return Price.builder()
                 .medicineId(this.getMedicineId())

@@ -69,6 +69,7 @@ public class DataProvidersConfig {
                 .baseUrl(pharmacyRozetkaBaseUrl)
                 .build();
     }
+
     @SneakyThrows
     @Bean(name = "aptslavWebClient")
     public WebClient aptslavWebClient() {

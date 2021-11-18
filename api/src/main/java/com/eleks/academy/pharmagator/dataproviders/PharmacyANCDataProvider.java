@@ -1,5 +1,6 @@
 package com.eleks.academy.pharmagator.dataproviders;
 
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.anc.ANCMedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.anc.ANCMedicinesResponse;
 import com.eleks.academy.pharmagator.dataproviders.dto.anc.ANCSubcategoryDto;
@@ -85,4 +86,3 @@ public class PharmacyANCDataProvider implements DataProvider {
     }
 
 }
-

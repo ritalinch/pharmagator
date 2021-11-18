@@ -1,5 +1,6 @@
 package com.eleks.academy.pharmagator.dataproviders;
 
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.CategoryDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicinesResponse;

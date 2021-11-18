@@ -1,5 +1,6 @@
 package com.eleks.academy.pharmagator.dataproviders;
 
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.liki24.Liki24MedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.liki24.Liki24MedicinesResponse;
 import lombok.RequiredArgsConstructor;

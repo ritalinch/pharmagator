@@ -1,9 +1,9 @@
 package com.eleks.academy.pharmagator.dataproviders;
 
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.aptslav.AptslavMedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.aptslav.AptslavResponseBody;
 import com.eleks.academy.pharmagator.dataproviders.dto.aptslav.converters.ApiDtoConverter;
-import com.eleks.academy.pharmagator.dataproviders.dto.input.MedicineDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,25 +20,19 @@ import java.util.stream.Stream;
 @Qualifier("aptslavDataProvider")
 public class AptslavDataProvider implements DataProvider {
 
-    @Value("${pharmagator.data-providers.aptslav.categories-url}")
-    private String categoriesFetchUrl;
-
-    @Value("${pharmagator.data-providers.aptslav.medicines-uri}")
-    private String medicinesFetchUri;
-
-    @Value("${pharmagator.data-providers.aptslav.medicineLinkTemplate}")
-    private String medicineLinkTemplate;
-
-    @Value("${pharmagator.data-providers.aptslav.title}")
-    private String pharmacyTitle;
-
-    @Value("${pharmagator.data-providers.aptslav.page-size}")
-    private Integer pageSize;
-
     @Qualifier("aptslavWebClient")
     private final WebClient aptslavWebClient;
-
     private final ApiDtoConverter<AptslavMedicineDto> apiDtoConverter;
+    @Value("${pharmagator.data-providers.aptslav.categories-url}")
+    private String categoriesFetchUrl;
+    @Value("${pharmagator.data-providers.aptslav.medicines-uri}")
+    private String medicinesFetchUri;
+    @Value("${pharmagator.data-providers.aptslav.medicineLinkTemplate}")
+    private String medicineLinkTemplate;
+    @Value("${pharmagator.data-providers.aptslav.title}")
+    private String pharmacyTitle;
+    @Value("${pharmagator.data-providers.aptslav.page-size}")
+    private Integer pageSize;
 
     @Override
     public Stream<MedicineDto> loadData() {
@@ -100,7 +94,7 @@ public class AptslavDataProvider implements DataProvider {
      */
     protected AptslavResponseBody<AptslavMedicineDto> sendGetMedicinesRequest(int step, int skip) {
 
-        if(step <= 0 || step > 100){
+        if (step <= 0 || step > 100) {
 
             throw new IllegalArgumentException("'step' param can't be less than 0 and greater than 100");
 
