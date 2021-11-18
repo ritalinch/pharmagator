@@ -1,10 +1,20 @@
+<<<<<<< HEAD
 package com.eleks.academy.pharmagator.dataproviders;
 
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+=======
+package com.eleks.academy.pharmagator.dataproviders.ds;
+
+import com.eleks.academy.pharmagator.dataproviders.DataProvider;
+>>>>>>> 77f3be9 (Update)
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.CategoryDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicineDto;
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.DSMedicinesResponse;
 import com.eleks.academy.pharmagator.dataproviders.dto.ds.FilterRequest;
+<<<<<<< HEAD
+=======
+import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+>>>>>>> 77f3be9 (Update)
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,9 +24,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -97,6 +107,8 @@ public class PharmacyDSDataProvider implements DataProvider {
                     .map(this::mapToMedicineDto);
         }
         return Stream.of();
+
+
     }
 
     private MedicineDto mapToMedicineDto(DSMedicineDto dsMedicineDto) {

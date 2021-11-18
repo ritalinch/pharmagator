@@ -15,6 +15,7 @@ public interface PriceService {
     Optional<Price> update(Long pharmacyId, Long medicineId, PriceDto priceDto);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     void deleteById(Long pharmacyId, Long medicineId);
     
 =======
@@ -38,3 +39,8 @@ public interface PriceService {
     }
 >>>>>>> 6efd804 (Fix "delete" methods in controllers and services)
 }
+=======
+    void deleteById(Long pharmacyId, Long medicineId);
+
+}
+>>>>>>> 77f3be9 (Update)

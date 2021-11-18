@@ -23,6 +23,7 @@ public interface MedicineService {
     void deleteById(Long id);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @Override
     public void create(MedicineRequestDto medicineRequestDto) {
@@ -46,3 +47,6 @@ public interface MedicineService {
     }
 >>>>>>> 6efd804 (Fix "delete" methods in controllers and services)
 }
+=======
+}
+>>>>>>> 77f3be9 (Update)

@@ -5,6 +5,9 @@ import com.eleks.academy.pharmagator.entities.Pharmacy;
 
 import java.util.List;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 77f3be9 (Update)
 import java.util.Optional;
 
 public interface PharmacyService {
@@ -18,6 +21,7 @@ public interface PharmacyService {
     Optional<Pharmacy> update(Long id, PharmacyDto pharmacyDto);
 
     void deleteById(Long id);
+<<<<<<< HEAD
 =======
 import java.util.stream.Collectors;
 
@@ -64,3 +68,7 @@ public class PharmacyService implements ControllerService<Long, PharmacyRequestD
 >>>>>>> 6efd804 (Fix "delete" methods in controllers and services)
 
 }
+=======
+
+}
+>>>>>>> 77f3be9 (Update)

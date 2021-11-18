@@ -64,11 +64,11 @@ public class PharmacyRozetkaDataProvider implements DataProvider {
 
     private Optional<RozetkaProductIdsResponseData> fetchProductIds(int page) {
         RozetkaProductIdsResponse productIds = this.rozetkaClient.get().uri(u -> u
-                        .path(productIdsFetchUrl)
-                        .queryParam("category_id", categoryId)
-                        .queryParam("sell_status", sellStatus)
-                        .queryParam("page", page)
-                        .build())
+                .path(productIdsFetchUrl)
+                .queryParam("category_id", categoryId)
+                .queryParam("sell_status", sellStatus)
+                .queryParam("page", page)
+                .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<RozetkaProductIdsResponse>() {
                 })
@@ -78,16 +78,16 @@ public class PharmacyRozetkaDataProvider implements DataProvider {
     }
 
     private Stream<MedicineDto> fetchProducts(List<Long> productIdsList) {
-        if(productIdsList.isEmpty()) {
+        if (productIdsList.isEmpty()) {
             return Stream.empty();
         }
         String productIds = productIdsList.stream()
                 .map(Object::toString)
                 .collect(Collectors.joining(","));
         RozetkaMedicineResponse rozetkaMedicineResponse = this.rozetkaClient.get().uri(u -> u
-                        .path(productsPath)
-                        .queryParam("product_ids", productIds)
-                        .build())
+                .path(productsPath)
+                .queryParam("product_ids", productIds)
+                .build())
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<RozetkaMedicineResponse>() {
                 })
