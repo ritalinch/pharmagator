@@ -28,12 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-public class MedicineControllerIT {
+public class PriceControllerIT {
 
     private MockMvc mockMvc;
     private DatabaseDataSourceConnection dataSourceConnection;
 
-    private final String URI = "/medicines";
+    private final String URI = "/prices";
 
     @Autowired
     public void setComponents(final MockMvc mockMvc,
@@ -47,45 +47,53 @@ public class MedicineControllerIT {
 
     @AfterEach
     void tearDown(){
-        JdbcTestUtils.deleteFromTables(jdbcTemplate, "medicines");
+        JdbcTestUtils.deleteFromTables(jdbcTemplate, "prices", "pharmacies", "medicines");
     }
 
     @Test
-    public void findAllMedicines_findIds_ok() throws Exception {
+    public void contextLoads() {
+    }
+
+    @Test
+    public void findAllPrices_findIds_ok() throws Exception {
         try {
             DatabaseOperation.REFRESH.execute(this.dataSourceConnection, readDataset());
 
             this.mockMvc.perform(MockMvcRequestBuilders.get(URI))
                     .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(jsonPath("$[*].title",
-                            Matchers.hasItems("MedicineControllerIT_name1", "MedicineControllerIT_name2")));
+                    .andExpect(jsonPath("$[*].externalId",
+                            Matchers.hasItems("2021111201","2021111202")));
         } finally {
             this.dataSourceConnection.close();
         }
     }
 
     @Test
-    public void findMedicinesById_ok() throws Exception {
+    public void findPriceById_ok() throws Exception {
+        int pharmacyId = 2021111201;
         int medicineId = 2021111201;
         try {
             DatabaseOperation.REFRESH.execute(this.dataSourceConnection, readDataset());
 
-            this.mockMvc.perform(MockMvcRequestBuilders.get(URI +"/{id}", medicineId))
+            this.mockMvc.perform(MockMvcRequestBuilders.get(URI
+                            + "/pharmacyId/{pharmacyId}/medicineId/{medicineId}", pharmacyId, medicineId))
                     .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(jsonPath("title",
-                            Matchers.equalToIgnoringCase("MedicineControllerIT_name1")));
+                    .andExpect(jsonPath("$.price").value(150.0))
+                    .andExpect(jsonPath("$.externalId").value(2021111201));
         } finally {
             this.dataSourceConnection.close();
         }
     }
 
     @Test
-    public void findMedicinesById_notFound() throws Exception {
-        int medicineId = 2021111203;
+    public void findPriceById_isNotFound() throws Exception {
+        int pharmacyId = 2021110703;
+        int medicineId = 2021110703;
         try {
             DatabaseOperation.REFRESH.execute(this.dataSourceConnection, readDataset());
 
-            this.mockMvc.perform(MockMvcRequestBuilders.get(URI +"/{id}", medicineId))
+            this.mockMvc.perform(MockMvcRequestBuilders.get(URI
+                            + "/pharmacyId/{pharmacyId}/medicineId/{medicineId}", pharmacyId, medicineId))
                     .andExpect(MockMvcResultMatchers.status().isNotFound());
         } finally {
             this.dataSourceConnection.close();
@@ -93,56 +101,41 @@ public class MedicineControllerIT {
     }
 
     @Test
-    void createMedicine_isOk() throws Exception {
-
-        try {
-            DatabaseOperation.REFRESH.execute(this.dataSourceConnection, readDataset());
-
-            this.mockMvc.perform(MockMvcRequestBuilders.post(URI)
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"title\": \"MedicineControllerIT_name3\"}"))
-                    .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(jsonPath("$.title").value("MedicineControllerIT_name3"));
-        } finally {
-            this.dataSourceConnection.close();
-        }
-
-    }
-
-    @Test
-    void updateMedicineById_isOk() throws Exception {
+    void updatePriceById_isOk() throws Exception {
+        int pharmacyId = 2021111201;
         int medicineId = 2021111201;
         try {
             DatabaseOperation.REFRESH.execute(this.dataSourceConnection, readDataset());
 
-            this.mockMvc.perform(MockMvcRequestBuilders.put(URI +"/{id}", medicineId)
+            this.mockMvc.perform(MockMvcRequestBuilders.put(URI
+                                    + "/pharmacyId/{pharmacyId}/medicineId/{medicineId}", pharmacyId, medicineId)
                             .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"title\": \"new-name\"}"))
+                            .content("{\"price\": \"180.0\", \"externalId\": \"2021111201\"}"))
                     .andExpect(MockMvcResultMatchers.status().isOk())
-                    .andExpect(jsonPath("$.title").value("new-name"));
+                    .andExpect(jsonPath("$.price").value(180.0));
         } finally {
             this.dataSourceConnection.close();
         }
     }
 
     @Test
-    void deleteMedicineById_isNoContent() throws Exception {
+    void deletePriceById_isNoContent() throws Exception {
+        int pharmacyId = 2021111201;
         int medicineId = 2021111201;
         try {
             DatabaseOperation.REFRESH.execute(this.dataSourceConnection, readDataset());
 
-            this.mockMvc.perform(MockMvcRequestBuilders.delete(URI +"/{id}", medicineId))
+            this.mockMvc.perform(MockMvcRequestBuilders.delete(URI
+                            + "/pharmacyId/{pharmacyId}/medicineId/{medicineId}", pharmacyId, medicineId))
                     .andExpect(MockMvcResultMatchers.status().isNoContent());
         } finally {
             this.dataSourceConnection.close();
         }
     }
 
-
     private IDataSet readDataset() throws DataSetException, IOException {
-
         try (var resource = getClass()
-                .getResourceAsStream("MedicineControllerIT_dataset.xml")) {
+                .getResourceAsStream("PriceControllerIT_dataset.xml")) {
             return new FlatXmlDataSetBuilder()
                     .build(resource);
         }
