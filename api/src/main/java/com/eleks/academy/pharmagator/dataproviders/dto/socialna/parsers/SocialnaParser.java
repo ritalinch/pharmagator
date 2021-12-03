@@ -1,6 +1,7 @@
 package com.eleks.academy.pharmagator.dataproviders.dto.socialna.parsers;
 
 import com.eleks.academy.pharmagator.dataproviders.dto.MedicineDto;
+import com.eleks.academy.pharmagator.exceptions.PharmagatorApiException;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -28,12 +29,11 @@ public class SocialnaParser {
             return Jsoup.connect(url).get().select(".product-item-details").stream()
                     .filter(e -> !e.children().eachText().contains("Відсутній на складі"))
                     .map(this::mapElementToMedicineDto);
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
+        } catch (IOException e) {
+            throw new PharmagatorApiException("An error occurred " +
+                    "in SocialnaParser during getMedicinesFromPageByUrl().\n" +
+                    e.getMessage());
         }
-
-        return Stream.of();
     }
 
     private MedicineDto mapElementToMedicineDto(Element element) {
