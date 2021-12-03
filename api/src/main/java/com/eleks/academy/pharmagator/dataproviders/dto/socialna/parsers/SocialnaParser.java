@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 @Component
@@ -24,31 +22,6 @@ public class SocialnaParser {
 
     @Value("${pharmagator.data-providers.apteka-socialna.pharmacy-name}")
     private String pharmacyName;
-
-    public int getNumberOfPages() {
-        try {
-            Element amountElement = Jsoup.connect(pharmacySocialnaBaseUrl).get().select("div.pager > p.amount").first();
-            String ans = amountElement.ownText().trim();
-            Matcher matcher = Pattern.compile("[0-9]+$").matcher(ans);
-            matcher.find();
-            int total = Integer.parseInt(matcher.group(0));
-
-            matcher = Pattern.compile("до\\s[0-9]+\\sз").matcher(ans);
-            matcher.find();
-            matcher = Pattern.compile("[0-9]+").matcher(matcher.group(0));
-            matcher.find();
-            short per = Short.parseShort(matcher.group(0));
-
-            return (total % per == 0)
-                    ? total / per
-                    : total / per + 1;
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
-        return 0;
-    }
 
     public Stream<MedicineDto> getMedicinesFromPageByUrl(String url) {
         try {

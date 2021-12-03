@@ -50,3 +50,4 @@ pharmagator:
     apteka-socialna:
       url: https://1sa.com.ua/medikamenty
       pharmacy-name: apteka-911-socialna
+      page-limit: 10
