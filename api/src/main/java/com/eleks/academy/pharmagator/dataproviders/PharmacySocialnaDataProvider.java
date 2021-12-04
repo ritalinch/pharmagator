@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -26,14 +25,13 @@ public class PharmacySocialnaDataProvider implements DataProvider {
 
     @Override
     public Stream<MedicineDto> loadData() {
-        return generateAllUrls().stream()
+        return generateAllUrls()
                 .flatMap(socialnaParser::getMedicinesFromPageByUrl);
     }
 
-    private List<String> generateAllUrls() {
+    private Stream<String> generateAllUrls() {
         return IntStream.rangeClosed(1, pagesLimit)
-                .mapToObj((int i) -> pharmacySocialnaBaseUrl + "?p=" + i)
-                .toList();
+                .mapToObj((int i) -> pharmacySocialnaBaseUrl + "?p=" + i);
     }
 
 }
