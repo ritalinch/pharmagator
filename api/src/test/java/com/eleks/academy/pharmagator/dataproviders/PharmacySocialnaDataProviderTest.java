@@ -59,7 +59,9 @@ class PharmacySocialnaDataProviderTest {
 
         ImportService importServiceMock = mock(ImportServiceImpl.class);
 
-        assertThrows(PharmagatorApiException.class, () -> subject.loadData().forEach(importServiceMock::storeToDatabase));
+        Stream<MedicineDto> medicineDtoStream = subject.loadData();
+
+        assertThrows(PharmagatorApiException.class, () -> medicineDtoStream.forEach(importServiceMock::storeToDatabase));
     }
 
 }
