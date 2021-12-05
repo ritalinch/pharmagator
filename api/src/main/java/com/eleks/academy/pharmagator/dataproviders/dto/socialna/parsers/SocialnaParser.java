@@ -18,9 +18,6 @@ import java.util.stream.Stream;
 @Qualifier(value = "socialnaParser")
 public class SocialnaParser {
 
-    @Value("${pharmagator.data-providers.apteka-socialna.url}")
-    private String pharmacySocialnaBaseUrl;
-
     @Value("${pharmagator.data-providers.apteka-socialna.pharmacy-name}")
     private String pharmacyName;
 
