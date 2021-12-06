@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
@@ -34,12 +35,24 @@ public class SocialnaParser {
     }
 
     private MedicineDto mapElementToMedicineDto(Element element) {
+        String title = getElementByCssQuery(element, "span.gproductname");
+
+        String price = getElementByCssQuery(element, "span.gproductprice");
+
+        String externalId = getElementByCssQuery(element, "span.gproductid");
+
         return MedicineDto.builder()
-                .title(element.select("span.gproductname").first().ownText())
-                .price(new BigDecimal(element.select("span.gproductprice").first().ownText()))
-                .externalId(element.select("span.gproductid").first().ownText())
+                .title(title)
+                .price(new BigDecimal(price))
+                .externalId(externalId)
                 .pharmacyName(pharmacyName)
                 .build();
+    }
+
+    private String getElementByCssQuery(Element parentElement, String cssQuerySelector) {
+        return Optional.ofNullable(parentElement.select(cssQuerySelector).first())
+                .map(Element::ownText)
+                .orElseThrow(() -> new PharmagatorApiException("Failed to map element to MedicineDto in SocialnaParser"));
     }
 
 }
