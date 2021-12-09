@@ -26,19 +26,18 @@ class PharmacySocialnaDataProviderTest {
     void setUp() {
         socialnaParserMock = mock(SocialnaParser.class);
 
+        MedicineDto dummyMedicine = MedicineDto.builder()
+                .pharmacyName("socialna")
+                .build();
+
         when(socialnaParserMock.getMedicinesFromPageByUrl(anyString()))
-                .thenReturn(Stream.of(
-                        MedicineDto.builder()
-                                .pharmacyName("socialna")
-                                .build()
-                ));
+                .thenReturn(Stream.of(dummyMedicine));
 
         subject = new PharmacySocialnaDataProvider(socialnaParserMock);
 
         ReflectionTestUtils.setField(subject, "pagesLimit", 1);
 
         ReflectionTestUtils.setField(subject, "pharmacySocialnaBaseUrl", "https://1sa.com.ua/medikamenty");
-
     }
 
     @Test
