@@ -1,4 +1,4 @@
-package com.eleks.academy.pharmagator.dto;
+package com.eleks.academy.pharmagator.dataproviders.dto;
 
 import com.univocity.parsers.annotations.Parsed;
 import lombok.*;

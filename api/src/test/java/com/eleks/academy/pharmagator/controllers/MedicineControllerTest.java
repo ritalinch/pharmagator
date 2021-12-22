@@ -34,18 +34,22 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Import({MedicineController.class, ModelMapperConfig.class})
 class MedicineControllerTest {
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private MedicineServiceImpl medicineService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    private final String URI = "/medicines";
     private static Medicine medicine;
     private static Medicine medicine2;
     private static List<Medicine> medicineList;
-    private final String URI = "/medicines";
-    @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
-    private MockMvc mockMvc;
-    @MockBean
-    private MedicineServiceImpl medicineService;
-    @Autowired
-    private ModelMapper modelMapper;
 
     @BeforeAll
     public static void setup() {
@@ -59,8 +63,8 @@ class MedicineControllerTest {
         when(medicineService.save(any(MedicineDto.class))).thenReturn(medicine);
 
         mockMvc.perform(post(URI)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(modelMapper.map(medicine, MedicineDto.class))))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(modelMapper.map(medicine, MedicineDto.class))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value(medicine.getTitle()))
                 .andDo(MockMvcResultHandlers.print());
@@ -72,14 +76,9 @@ class MedicineControllerTest {
     void getAllProducts_() throws Exception {
         when(medicineService.findAll()).thenReturn(medicineList);
 
-<<<<<<< HEAD
         mockMvc.perform(MockMvcRequestBuilders.get(URI))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-=======
-        mockMvc.perform(MockMvcRequestBuilders.get(URI)
-                .contentType(MediaType.APPLICATION_JSON))
->>>>>>> 77f3be9 (Update)
                 .andDo(MockMvcResultHandlers.print());
 
         verify(medicineService, times(1)).findAll();
@@ -90,12 +89,7 @@ class MedicineControllerTest {
 
         doNothing().when(medicineService).deleteById(medicine.getId());
 
-<<<<<<< HEAD
         mockMvc.perform(delete(URI + "/" + medicine.getId()))
-=======
-        mockMvc.perform(delete(URI + "/" + medicine.getId())
-                .contentType(MediaType.APPLICATION_JSON))
->>>>>>> 77f3be9 (Update)
                 .andExpect(MockMvcResultMatchers.status().isNoContent())
                 .andDo(MockMvcResultHandlers.print());
 
@@ -106,14 +100,8 @@ class MedicineControllerTest {
     void GetMappingOfMedicine_ShouldReturnRespectiveMedicine() throws Exception {
         when(medicineService.findById(medicine.getId())).thenReturn(Optional.ofNullable(medicine));
 
-<<<<<<< HEAD
         mockMvc.perform(get(URI + "/" + medicine.getId()))
                 .andExpect(status().isOk())
-=======
-        mockMvc.perform(get(URI + "/" + medicine.getId())
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
->>>>>>> 77f3be9 (Update)
                 .andExpect(jsonPath("$.title", equalTo(medicine.getTitle())));
     }
 
@@ -123,8 +111,8 @@ class MedicineControllerTest {
                 .thenReturn(Optional.ofNullable(medicine));
 
         mockMvc.perform(put(URI + "/" + medicine.getId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(modelMapper.map(medicine, MedicineDto.class))))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(modelMapper.map(medicine, MedicineDto.class))))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.title").value(medicine.getTitle()))
                 .andDo(MockMvcResultHandlers.print());
@@ -146,8 +134,8 @@ class MedicineControllerTest {
         when(medicineService.update(anyLong(), any(MedicineDto.class))).thenReturn(Optional.empty());
 
         mockMvc.perform(put(URI + "/{id}", 1000L)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(medicine)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(medicine)))
                 .andExpect(status().isNotFound())
                 .andDo(MockMvcResultHandlers.print());
     }
